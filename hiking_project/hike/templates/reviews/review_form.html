@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="text-align: center;">
+<h2>{{ type_of_request }} Review</h2>
+<form method="POST">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+    <form name="cancel" method="GET" action="{% url 'trail_detail' trail_id=trail.id %}">
+    <input type="submit" value="Cancel" />
+</form>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{ % extends 'base.html' %}
+
+{% block title %}14er and Me{% endblock %}
+
+{% block content %}
+    <div>
+      <h2>What would you like to do?</h2>
+      <ul>
+        <li><a href="{% url 'new_trail' %}">Create a new Trail</a></li>
+        <li><a href="{% url 'trail_list' %}">View All Trails</a></li>
+      </ul>
+    </div>
+{% endblock %} 

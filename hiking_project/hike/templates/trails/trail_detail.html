@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+  <h1 style="text-align: center;">{{ trail.hike_name }}</h1>
+<hr>
+<center>Trail Details</center>
+<hr>
+  <center>
+    <p>Location: {{trail.hike_location}}</p>
+      <p>Difficulty: {{trail.hike_difficulty}}</p>
+      <p>Length: {{trail.hike_milage}} mi</p>
+      <p>{{trail.hike_description}}</p>
+      <hr>
+      {% for review in reviews %}
+      {% if user.is_authenticated and user.username == review.username %}
+      <form name="delete_review" method="POST" action="{% url 'delete_review' trail_id=trail.id review_id=review.id %}" onsubmit="return confirm('Are you sure you want to delete?');">
+    {% csrf_token %}
+    <input type="submit" style="background-color:black;color:white;" value="Delete Review" />
+  </form>
+      {% endif %}
+      <p>{{review.review}} {{review.username}} {{review.created_date}} </p>
+      {% endfor %}
+      <hr>
+      <p><a href="{% url 'trail_list' %}">Trails</a></p>
+<hr>
+  <br>
+  {% if user.is_authenticated %}
+<center><form name="new_review" method="POST" action="{% url 'new_review' trail_id=trail.id %}">
+ {% csrf_token %} 
+<input type="submit" style="background-color:black;color:white;" value="Create new review" />
+</form></center>
+  <!-- <form name="delete_trail" method="POST" action="{% url 'delete_trail' trail_id=trail.id %}" onsubmit="return confirm('Are you sure you want to delete?');">
+    {% csrf_token %}
+    <input type="submit" style="background-color:black;color:white;" value="Delete Trail" />
+  </form> -->
+
+{% endif %}
+
+  <br>
+   
+</div>
+{% endblock %}
