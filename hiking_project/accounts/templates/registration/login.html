@@ -7,5 +7,11 @@
   {{ form.as_p }}
   <button type="submit">Log In</button>
 </form>
+<P>
+  <hr>
+<form name="signup" method="POST" action="{% url 'signup' %}">
+  {% csrf_token %}
+    <input type="submit" value="Sign Up!" />
+  </form>
 </div>
 {% endblock %}

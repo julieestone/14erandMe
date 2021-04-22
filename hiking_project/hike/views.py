@@ -4,7 +4,9 @@ from .forms import TrailForm, ReviewForm
 from django.http import Http404
 from django import forms
 
+
 # Create your views here.
+
 def get_trail(trail_id):
     try:
         trail = Trail.objects.get(id=trail_id)

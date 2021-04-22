@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path('', views.trail_list, name='trail_list'),
     path('new', views.new_trail, name='new_trail'),
@@ -12,4 +13,5 @@ urlpatterns = [
     path('<int:trail_id>/reviews/<int:review_id>', views.review_detail, name='review_detail'),
     path('<int:trail_id>/reviews/<int:review_id>/edit', views.edit_review, name='edit_review'),
     path('<int:trail_id>/reviews/<int:review_id>/delete', views.delete_review, name='delete_review'),
+    
 ]
