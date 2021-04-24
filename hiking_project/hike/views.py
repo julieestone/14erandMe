@@ -3,13 +3,15 @@ from .models import Trail, Review
 from .forms import TrailForm, ReviewForm
 from django.http import Http404
 from django import forms
-
+import http.client
+import base64
 
 # Create your views here.
 
 def get_trail(trail_id):
     try:
         trail = Trail.objects.get(id=trail_id)
+        weather_api()
     except Trail.DoesNotExist:
         raise Http404
     return trail
@@ -25,9 +27,12 @@ def trail_detail(request, trail_id):
 
 def new_trail(request):
     if request.method == "POST":
-        form = TrailForm(request.POST)
+        form = TrailForm(request.POST, request.FILES)
         if form.is_valid():
             trail = form.save(commit=False)
+            trail.hike_image = base64.b64encode(
+                trail.hike_image_file.file.read())
+            trail.hike_image_file = None
             trail.save()
             return redirect('trail_detail', trail_id=trail.id)
     else:
@@ -109,3 +114,18 @@ def delete_review(request, trail_id, review_id):
         review.delete()
     return trail_detail(request, trail_id)
   
+def weather_api():
+    conn = http.client.HTTPSConnection("community-open-weather-map.p.rapidapi.com")
+
+    headers = {
+        'x-rapidapi-key': "d7cb94f27dmsh96d3dabd8b73ea8p1e8114jsn6514282cc8de",
+        'x-rapidapi-host': "community-open-weather-map.p.rapidapi.com"
+    }
+
+    conn.request("GET", "/weather?q=Estes%20Park&lat=0&lon=0&callback=test&id=2172797&lang=null&units=%22metric%22%20or%20%22imperial%22&mode=xml%2C%20html", headers=headers)
+
+    res = conn.getresponse()
+    data = res.read()
+
+    print(data.decode("utf-8"))
+

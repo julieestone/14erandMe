@@ -3,7 +3,7 @@
 <div style="text-align: center;">
 <h2>{{ type_of_request }} Trail</h2>
 <hr>
-<form method="POST">{% csrf_token %}
+<form method="POST" enctype="multipart/form-data">{% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Save</button>
 </form>

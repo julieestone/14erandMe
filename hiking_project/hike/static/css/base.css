@@ -1,0 +1,10 @@
+.navbar-brand {
+  transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
+}
+
+.card-img-bottom {
+  padding-left: 14px;
+  padding-right: 14px;
+}

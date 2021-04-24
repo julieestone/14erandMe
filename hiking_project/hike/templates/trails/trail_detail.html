@@ -1,16 +1,49 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
+
 <div>
   <h1 style="text-align: center;">{{ trail.hike_name }}</h1>
-<hr>
-<center>Trail Details</center>
-<hr>
-  <center>
-    <p>Location: {{trail.hike_location}}</p>
+<div class="container">
+<div class="card" style="min-width:1600px; margin-left: -240px; height:fit-content; padding-bottom:0;">
+  <div class="row">
+    <div class="col-4 pb-0">
+      <img src="data:image/jpeg;base64,{{trail.hike_image|slice:'2:-1'}}" alt="Trail Image" style="max-width:480px;">
+    </div>
+    <div class="col-8">
+      <div class="card-body">
+        <h5 class="card-title">Hike Details</h5>
+        <p class="card-text"><p>Location: {{trail.hike_location}}</p>
+      <p>City: <span id="city">{{trail.hike_city}}</span></p>
       <p>Difficulty: {{trail.hike_difficulty}}</p>
       <p>Length: {{trail.hike_milage}} mi</p>
-      <p>{{trail.hike_description}}</p>
-      <hr>
+      <p>Hike Description: {{trail.hike_description}}</p></p>
+      </div>
+    </div>
+    <iframe
+  class="card-img-bottom"
+  width="fit-content"
+  height="450"
+  style="border:0; max-width: 100%;"
+  loading="lazy"
+  allowfullscreen
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBcNHgd6Ny4omOMUW7nZrQ3VxrC0WhSs3A
+    &q={{trail.hike_location}}">
+</iframe>
+  </div>
+</div>
+</div>
+      <p>
+</p>
+<div id="weather-host">
+<p id="temperature">Temperature: </p>
+<p id="feels_like">Feels like: </p>
+<p id="temp_min">Minimum Temp: </p>
+<p id="temp_max">Maximum Temp: </p>
+<p id="weather">Weather: </p>
+</div>
+<script src="{% static 'js/weather_api.js' %}"></script>
+<hr>
       {% for review in reviews %}
       {% if user.is_authenticated and user.username == review.username %}
       <form name="delete_review" method="POST" action="{% url 'delete_review' trail_id=trail.id review_id=review.id %}" onsubmit="return confirm('Are you sure you want to delete?');">
@@ -20,32 +53,18 @@
       {% endif %}
       <p>{{review.review}} {{review.username}} {{review.created_date}} </p>
       {% endfor %}
-      <hr>
-      <p><a href="{% url 'trail_list' %}">Trails</a></p>
-<hr>
-  <br>
+  <hr>
   {% if user.is_authenticated %}
 <center><form name="new_review" method="POST" action="{% url 'new_review' trail_id=trail.id %}">
  {% csrf_token %} 
 <input type="submit" style="background-color:black;color:white;" value="Create new review" />
 </form></center>
-  <!-- <form name="delete_trail" method="POST" action="{% url 'delete_trail' trail_id=trail.id %}" onsubmit="return confirm('Are you sure you want to delete?');">
-    {% csrf_token %}
-    <input type="submit" style="background-color:black;color:white;" value="Delete Trail" />
-  </form> -->
+<hr>
+      <p><a href="{% url 'trail_list' %}">Return to the Trails List</a></p>
 
 {% endif %}
-
-  <br>
-  <iframe
-  width="600"
-  height="450"
-  style="border:0"
-  loading="lazy"
-  allowfullscreen
-  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBcNHgd6Ny4omOMUW7nZrQ3VxrC0WhSs3A
-    &q={{trail.hike_location}}">
-</iframe>
-   
+ 
 </div>
+
 {% endblock %}
+
