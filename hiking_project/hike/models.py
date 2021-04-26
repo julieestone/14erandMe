@@ -8,7 +8,7 @@ class Trail(models.Model):
     hike_location = models.CharField(max_length=200)
     hike_city = models.CharField(max_length=100)
     hike_difficulty = models.CharField(max_length=20)
-    hike_milage = models.DecimalField(max_digits=2, decimal_places=1)
+    hike_milage = models.DecimalField(max_digits=3, decimal_places=1)
     hike_description = models.TextField()
     hike_image_file = models.FileField(null=True, blank=True)
     hike_image = models.TextField(null=True, blank=True)

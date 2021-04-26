@@ -3,11 +3,18 @@
 {% block title %}Take a Hike with Me{% endblock %}
 
 {% block content %}
-    <div>
-      <h2>What would you like to do?</h2>
-      <ul>
-        <li><a href="{% url 'new_trail' %}">Create a new Trail</a></li>
-        <li><a href="{% url 'trail_list' %}">View All Trails</a></li>
+<div class="container content-container">
+   <div class="jumbotron jumbotron-fluid cover-picture">
+      <div class="container">
+         <!-- <h2 class="display-5 center-text">Welcome</h2> -->
+         <p class="lead center-text"> Welcome! This is a place for leisure hikers in the Denver area to share their favorite local hikes. If you create an account, you'll have the opportunity to add your own hikes or leave a reviews on any of the hikes! Below is our current list of hikes.</p>
+      </div>    
+    </div>
+   <div class="list-container" style="text-align:center;">
+     <h3 style="text-align: center;">What would you like to do?</h3>
+      <ul class="hike-list">
+        <li><a href="{% url 'new_trail' %}">Create a new Hike</a></li>
+        <li><a href="{% url 'trail_list' %}">View All Hikes</a></li>
       </ul>
     </div>
 {% endblock %} 
