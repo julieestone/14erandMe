@@ -1,1 +1,1 @@
- web: gunicorn your_django_project_name.wsgi
+ web: gunicorn hiking_project.wsgi
