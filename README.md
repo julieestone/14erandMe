@@ -1,4 +1,4 @@
-# Take a Hike Denver
+#Take a Hike Denver
 
 #Take a Hike Denver is my personal project to show my proficiency in using the Django framework. 
 
