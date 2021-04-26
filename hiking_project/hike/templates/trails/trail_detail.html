@@ -1,70 +1,74 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
 <div>
-  <h1 style="text-align: center;">{{ trail.hike_name }}</h1>
-<div class="container">
-<div class="card" style="min-width:1600px; margin-left: -240px; height:fit-content; padding-bottom:0;">
-  <div class="row">
-    <div class="col-4 pb-0">
-      <img src="data:image/jpeg;base64,{{trail.hike_image|slice:'2:-1'}}" alt="Trail Image" style="max-width:480px;">
-    </div>
-    <div class="col-8">
-      <div class="card-body">
-        <h5 class="card-title">Hike Details</h5>
-        <p class="card-text"><p>Location: {{trail.hike_location}}</p>
-      <p>City: <span id="city">{{trail.hike_city}}</span></p>
-      <p>Difficulty: {{trail.hike_difficulty}}</p>
-      <p>Length: {{trail.hike_milage}} mi</p>
-      <p>Hike Description: {{trail.hike_description}}</p></p>
+   <h2 class="center-text hike-name">{{ trail.hike_name }}</h2>
+   <div class="container">
+      <div class="card detail-item">
+         <div id="weather-host">
+            <p id="temperature"><i class="fas fa-thermometer-three-quarters"></i><strong> Temperature: </strong></p>
+            <p id="temp_min"><i class="fas fa-temperature-low"></i> <strong>Minimum Temp: </strong></p>
+            <p id="temp_max"><i class="fas fa-temperature-high"></i> <strong>Maximum Temp: </strong></p>
+            <p id="weather"><i class="fas fa-sun"></i> <strong>Weather: </strong></p>
+         </div>
+         <div class="row">
+            <div class="col-4 pb-0">
+               <img src="data:image/jpeg;base64,{{trail.hike_image|slice:'2:-1'}}" alt="Trail Image" style="max-width:480px;">
+            </div>
+            <div class="col-8">
+               <div class="card-body">
+                  <h5 class="card-title">Hike Details</h5>
+                  <p class="card-text">
+                  <p><strong>Location:</strong> {{trail.hike_location}}</p>
+                  <p><strong>City:</strong> <span id="city">{{trail.hike_city}}</span></p>
+                  <p><strong>Difficulty:</strong> {{trail.hike_difficulty}}</p>
+                  <p><strong>Length:</strong> {{trail.hike_milage}} mi</p>
+                  <p><strong>Hike Description:</strong> {{trail.hike_description}}</p>
+                  </p>
+               </div>
+            </div>
+            <iframe
+               class="card-img-bottom"
+               width="fit-content"
+               height="450"
+               style="border:0; max-width: 100%;"
+               loading="lazy"
+               allowfullscreen
+               src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBcNHgd6Ny4omOMUW7nZrQ3VxrC0WhSs3A
+               &q={{trail.hike_location}}">
+            </iframe>
+         </div>
       </div>
-    </div>
-    <iframe
-  class="card-img-bottom"
-  width="fit-content"
-  height="450"
-  style="border:0; max-width: 100%;"
-  loading="lazy"
-  allowfullscreen
-  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBcNHgd6Ny4omOMUW7nZrQ3VxrC0WhSs3A
-    &q={{trail.hike_location}}">
-</iframe>
-  </div>
+   </div>
+   <script src="{% static 'js/weather_api.js' %}"></script>
+   <script src="{% static 'js/trail_detail.js' %}"></script>
+   {% if reviews %}
+   <div class="container review-container detail-item">
+      <ul class="list-group list-group-flush">
+         {% for review in reviews %}
+         <li class="list-group-item">
+            {% if user.is_authenticated and user.username == review.username %}
+            <form name="delete_review" method="POST" action="{% url 'delete_review' trail_id=trail.id review_id=review.id %}" class="delete-form">
+               {% csrf_token %}
+               <span class="delete-button" title="delete"><i class="fas fa-trash"></i></span>
+            </form>
+            {% endif %}
+            <span class="review-description">{{review.review}}</span>
+            <br> <span class="review-username"><i class="fas fa-user"></i>  {{review.username}}</span> 
+            <span class="review-date"> <i class="fas fa-calendar-day"></i> {{review.created_date}}</span>
+         </li>
+         {% endfor %}
+      </ul>
+   </div>
+   {% endif %}
+   <hr>
+   {% if user.is_authenticated %}
+   <div class="center-text">
+      <form name="new_review" method="POST" action="{% url 'new_review' trail_id=trail.id %}">
+         {% csrf_token %} 
+         <input type="submit" style="background-color:black;color:white;" value="Create new review" />
+      </form>
+   </div>
+   {% endif %}
 </div>
-</div>
-      <p>
-</p>
-<div id="weather-host">
-<p id="temperature">Temperature: </p>
-<p id="feels_like">Feels like: </p>
-<p id="temp_min">Minimum Temp: </p>
-<p id="temp_max">Maximum Temp: </p>
-<p id="weather">Weather: </p>
-</div>
-<script src="{% static 'js/weather_api.js' %}"></script>
-<hr>
-      {% for review in reviews %}
-      {% if user.is_authenticated and user.username == review.username %}
-      <form name="delete_review" method="POST" action="{% url 'delete_review' trail_id=trail.id review_id=review.id %}" onsubmit="return confirm('Are you sure you want to delete?');">
-    {% csrf_token %}
-    <input type="submit" style="background-color:black;color:white;" value="Delete Review" />
-  </form>
-      {% endif %}
-      <p>{{review.review}} {{review.username}} {{review.created_date}} </p>
-      {% endfor %}
-  <hr>
-  {% if user.is_authenticated %}
-<center><form name="new_review" method="POST" action="{% url 'new_review' trail_id=trail.id %}">
- {% csrf_token %} 
-<input type="submit" style="background-color:black;color:white;" value="Create new review" />
-</form></center>
-<hr>
-      <p><a href="{% url 'trail_list' %}">Return to the Trails List</a></p>
-
-{% endif %}
- 
-</div>
-
 {% endblock %}
-

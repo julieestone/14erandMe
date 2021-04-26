@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 <div style="text-align: center;">
-<h2>{{ type_of_request }} Trail</h2>
-<hr>
-<form method="POST" enctype="multipart/form-data">{% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Save</button>
-</form>
-<hr>
-    <form name="cancel" method="GET" action="/hikes">
-    <input type="submit" value="Cancel" /></form>
+   <h2>{{ type_of_request }} Trail</h2>
+   <hr>
+   <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Save</button>
+   </form>
+   <hr>
+   <form name="cancel" method="GET" action="/hikes">
+      <input type="submit" value="Cancel" />
+   </form>
 </div>
 {% endblock %}

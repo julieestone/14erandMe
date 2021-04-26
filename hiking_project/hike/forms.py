@@ -11,6 +11,8 @@ class TrailForm(forms.ModelForm):
 
 
 class ReviewForm(forms.ModelForm):
+    username = forms.CharField(required=False, widget=forms.HiddenInput())
+
     class Meta:
         model = Review
-        fields = ('trail', 'difficulty', 'review', 'username')
+        fields = ('difficulty', 'review', 'username')

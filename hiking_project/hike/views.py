@@ -82,8 +82,9 @@ def new_review(request, trail_id):
     trail = get_trail(trail_id)
     if request.method == "POST":
         form = ReviewForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and request.user.is_authenticated:
             review = form.save(commit=False)
+            review.username = request.user.username
             review.trail = trail
             review.save()
             return trail_detail(request, trail_id)

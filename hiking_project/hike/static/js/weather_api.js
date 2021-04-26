@@ -15,7 +15,6 @@ $.ajax(settings).done(function (response) {
 	console.log(response);
 	var weather = response.weather[0];
 	$("#temperature").append(response.main.temp).append("˚");
-	$("#feels_like").append(response.main.feels_like).append("˚");
 	$("#temp_min").append(response.main.temp_min).append("˚");
 	$("#temp_max").append(response.main.temp_max).append("˚");
 	$("#weather").append(`${weather.main} - ${weather.description}`);

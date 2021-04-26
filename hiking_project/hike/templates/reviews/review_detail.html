@@ -1,24 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-
 <div style="text-align: center;">
-  <h1><a href="/trails/{{trail.id}}">{{trail.trail_name}}</a></h1>
-  <hr>
-  <p>
-   {{review.review_description}} 
-  </p>
-<hr>
-  <br>
-  <form name="edit_review" method="POST" action="{% url 'edit_review' trail_id=trail.id review_id=review.id%}">
-    {% csrf_token %}
-    <input type="submit" value="Edit review" />
-  </form>
-  <br>
-  <form name="delete_review" method="POST" action="{% url 'delete_review' trail_id=trail.id review_id=review.id %}">
-    {% csrf_token %}
-    <input type="submit" value="Delete review" />
-  </form>
-  <br>
- <p><a href="{% url 'trail_list' %}">Return to the Trail List</a></p>
+   <h2>{{ type_of_request }} Review</h2>
+   <form method="POST">{% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Save</button>
+   </form>
+   <form name="cancel" method="GET" action="{% url 'trail_detail' trail_id=trail.id %}">
+      <input type="submit" value="Cancel" />
+   </form>
 </div>
 {% endblock %}

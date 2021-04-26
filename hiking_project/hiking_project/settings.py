@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hike',
     'accounts',
+    'fontawesome_5',
 ]
 
 MIDDLEWARE = [

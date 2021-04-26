@@ -2,9 +2,119 @@
   transform: translateX(-50%);
   left: 50%;
   position: absolute;
+  font-family: 'Bangers', cursive;
+  font-size:32px !important;
 }
 
 .card-img-bottom {
   padding-left: 14px;
   padding-right: 14px;
+  border-radius: 8px;
+}
+
+#weather-host {
+  width: 320px;
+  position:absolute;
+  top: 16px;
+  right: 0;
+  float:right;
+}
+
+.container {
+  background-color: white;
+}
+
+body {
+  background-color: #efefef !important;
+}
+
+.review-description {
+  padding-right: 4px;
+}
+
+.review-username {
+  font-weight: 100;
+  padding-right: 4px;
+}
+
+.review-date {
+  font-weight: 100;
+}
+
+.delete-form {
+  width:8px;
+  position:absolute;
+  top: 8px;
+  right: 0;
+  float:right;
+  cursor: pointer;
+}
+
+#logout-button {
+  margin-left: 8px;
+}
+
+#user-greeting {
+  margin-left: 4px;
+}
+
+.content-container {
+  margin-top: 16px;
+  width: 96% !important;
+  max-width: none !important;
+  height: 90%;
+  min-height: 1000px;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.hike-list {
+  list-style-type: none;
+  padding:0;
+  margin:0;
+}
+
+.list-container {
+  height: 80%;
+  overflow-y: auto;
+  min-height: 860px;
+
+}
+
+.center-text {
+  text-align: center;
+}
+
+.cover-picture {
+  background-image: url("../img/rockymountains.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-y: center;
+}
+
+.jumbotron .container {
+  background-color: #ffffffa0; 
+}
+
+.hike-name {
+  font-family: 'Roboto Condensed',
+  sans-serif;
+  padding: 16px 0;
+}
+
+.review-container {
+  margin-top: 0;
+  min-width: 1600px !important;
+  height: fit-content !important;
+  padding-bottom: 0 !important;
+}
+
+.detail-item.card {
+  min-width:1600px !important;
+  margin-left: -240px !important;
+  height:fit-content !important;
+  padding-bottom:0 !important;
+}
+
+.detail-item {
 }
